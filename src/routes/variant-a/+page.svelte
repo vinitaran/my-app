@@ -1,14 +1,7 @@
 <script>
-  import { onMount } from 'svelte';
   import { createEventDispatcher } from 'svelte';
 
   const dispatch = createEventDispatcher();
-
-     const navigateToVariantB = () =>  {
-    console.log('Navigating to Variant B...');
-    window.location.href = '/variant-b';
-    console.log('Navigation complete.');
-}
 
   let day = '';
   let month = '';
@@ -40,12 +33,8 @@
   };
 
   const handleSubmit = () => {
-
-    console.log('hello');
-
-    // Display the notification modal
-  const modal = document.getElementById('notificationModal');
-modal.style.display = 'block';
+    const modal = document.getElementById('notificationModal');
+    modal.style.display = 'block';
     stopTimer();
     timeTaken = elapsedTime;
     if (timeTaken && keyCount > 0) {
@@ -53,14 +42,7 @@ modal.style.display = 'block';
     }
     const date = `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
     dispatch('submit', { date });
-
-
-
-
-    
   };
-
-
 
   const handleKeyDown = (event) => {
     const allowedKeys = [46, 8, 9, 27, 13, 110, 190];
@@ -81,9 +63,11 @@ modal.style.display = 'block';
     }
   };
 
-
-
-
+  const navigateToVariantB = () => {
+    console.log('Navigating to Variant B...');
+    window.location.href = '/variant-b';
+    console.log('Navigation complete.');
+  };
 </script>
 
 <div class="text-center mt-5">
@@ -137,8 +121,6 @@ modal.style.display = 'block';
     </div>
   </div>
 
-
-
   <!-- Notification Modal -->
   <div class="notification-modal" id="notificationModal">
     <div class="notification-content">
@@ -147,6 +129,7 @@ modal.style.display = 'block';
       <button class="btn btn-primary" on:click={navigateToVariantB}>Proceed to Variant B</button>
     </div>
   </div>
+
   <div>
     Key Count: {keyCount}
   </div>
@@ -159,60 +142,12 @@ modal.style.display = 'block';
   <div>
     Average Typing Speed: {averageTypingSpeed.toFixed(2)} keys per second
   </div>
+
   <button class="btn btn-primary mt-3" on:click={handleSubmit}>Submit</button>
 </div>
 
 <style>
   .text-center {
-    text-align: center;
-  }
-
-  .form-group {
-    margin-bottom: 15px;
-  }
-
-  .date-picker {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-
-  .form-group label {
-    margin-right: 10px;
-  }
-
-  .form-group input {
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    width: 50px;
-    text-align: center;
-  }
-
-  .form-group input[type="number"]::-webkit-inner-spin-button,
-  .form-group input[type="number"]::-webkit-outer-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-  }
-
-  .btn {
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-
-  .btn:hover {
-    background-color: #0056b3;
-  }
-
-  #notificationModal {
-  display: none; /* Initially hide the notification modal */
-  }
-
-   .text-center {
     text-align: center;
   }
 
@@ -244,9 +179,6 @@ modal.style.display = 'block';
     margin: 0;
   }
 
-
-
-
   .btn {
     padding: 10px 20px;
     background-color: #007bff;
@@ -261,14 +193,4 @@ modal.style.display = 'block';
   .btn:hover {
     background-color: #0056b3;
   }
-
-  /* Add margin between lines for other text */
-  .text-center > div:not(:last-child) {
-    margin-bottom: 20px;
-  }
-
 </style>
-
-</div>
-
-
