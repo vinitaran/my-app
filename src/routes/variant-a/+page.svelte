@@ -41,6 +41,8 @@
 
   const handleSubmit = () => {
 
+    console.log('hello');
+
     // Display the notification modal
   const modal = document.getElementById('notificationModal');
 modal.style.display = 'block';
