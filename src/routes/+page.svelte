@@ -1,106 +1,39 @@
-<script>
-  import { onMount } from 'svelte';
-  import { createEventDispatcher } from 'svelte';
-
-  const dispatch = createEventDispatcher();
-
-  let day = '';
-  let month = '';
-  let year = '';
-
-  onMount(() => {
-    const inputs = document.querySelectorAll('.date-picker--day, .date-picker--month, .date-picker--year');
-    inputs.forEach(input => {
-      input.addEventListener('keydown', handleKeyDown);
-    });
-  });
-
-  const handleKeyDown = (event) => {
-    const allowedKeys = [46, 8, 9, 27, 13, 110, 190];
-    const ctrlKeys = [65, 67, 86, 88];
-    const isCtrlPressed = event.ctrlKey || event.metaKey;
-    const isSpecialKey = allowedKeys.includes(event.keyCode) || (ctrlKeys.includes(event.keyCode) && isCtrlPressed);
-    const isNavigationKey = (event.keyCode >= 35 && event.keyCode <= 40);
-    const isNumericInput = (!event.shiftKey && (event.keyCode >= 48 && event.keyCode <= 57)) || (event.keyCode >= 96 && event.keyCode <= 105);
-
-    if (!(isSpecialKey || isNavigationKey || isNumericInput)) {
-      event.preventDefault();
-    }
-  };
-
-  const handleSubmit = () => {
-    const date = `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
-    dispatch('submit', { date });
-  };
-</script>
-
 <div class="text-center mt-5">
-   <h1>Enter your Birthday</h1>
+  <h1>Select Your Birthdate</h1>
 
-  <div class="form-group">
-    <div class="date-picker form-inline">
-      <div class="form-group">
-        <label for="day">Day</label>
-        <input bind:value={day} id="day" class="date-picker--day" type="number" min="1" max="31" placeholder="dd" maxlength="2" />
-      </div>
-      <div class="form-group">
-        <label for="month">Month</label>
-        <input bind:value={month} id="month" class="date-picker--month" type="number" min="1" max="12" placeholder="mm" maxlength="2" />
-      </div>
-      <div class="form-group">
-        <label for="year">Year</label>
-        <input bind:value={year} id="year" class="date-picker--year" type="number" placeholder="yyyy" maxlength="4" />
-      </div>
-    </div>
-  </div>
-  <button class="btn btn-primary mt-3" on:click={handleSubmit}>Submit</button>
+  <ul>
+    <li>Dear Participant, the purpose of conducting these tests is to evaluate the functionality of the user interface (UI) rather than assessing your individual performance.</li>
+    <li>We encourage you to explore and feel comfortable making mistakes; our primary focus is on examining the UI's functionality.</li>
+    <li>Our main objective is to assess the efficiency and accuracy of date entry.</li>
+    <li>Please ensure to focus on selecting your birth date accurately, giving priority to accuracy over speed.</li>
+    <li>Click on the "Next" button below to proceed. Thank you.</li>
+  </ul>
+
+  <button class="btn btn-primary mt-3" onclick="redirectToVariantA()">Next</button>
+
+  <script>
+    function redirectToVariantA() {
+      window.location.href = '/variant-a';
+    }
+  </script>
+
+
+ <style>
+    .text-center {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .btn {
+      padding: 10px 20px;
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 20px; /* Add space above the button */
+      margin-bottom: 20px; /* Add space below the button */
+    }
+  </style>
 </div>
-
-
-
-<style>
-  .text-center {
-    text-align: center;
-  }
-
-  .form-group {
-    margin-bottom: 15px;
-  }
-
-  .date-picker {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-
-  .form-group label {
-    margin-right: 10px;
-  }
-
-  .form-group input {
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    width: 50px;
-    text-align: center;
-  }
-
-  .form-group input[type="number"]::-webkit-inner-spin-button,
-  .form-group input[type="number"]::-webkit-outer-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-  }
-
-  .btn {
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-
-  .btn:hover {
-    background-color: #0056b3;
-  }
-</style>

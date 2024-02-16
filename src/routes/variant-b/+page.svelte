@@ -15,6 +15,12 @@
   let isBackspacePressed = false;
   let isTimeStarted = false;
 
+     const navigateToVariantB = () =>  {
+    console.log('Navigating to Variant B...');
+    window.location.href = 'https://docs.google.com/forms/d/e/1FAIpQLSfN5KSoGmuhVcXFXDH3oUEPKHdj0gL-akc3NcKcvvXsCcY0-w/viewform';
+    console.log('Navigation complete.');
+}
+
   const startTimer = () => {
     startTime = Date.now();
     isTimeStarted = true;
@@ -53,13 +59,14 @@
   };
 
   const validateDate = () => {
+    const modal = document.getElementById('notificationModal');
+  modal.style.display = 'block';
     if (dateInput) {
       const [day, month, year] = dateInput.split('/');
       const formattedDate = new Date(`${year}-${month}-${day}`);
 
       isValidDate = !isNaN(formattedDate.getDate()) && formattedDate.getFullYear() == year;
 
-      errorSummary = isValidDate ? 'Date is valid..!!' : 'Please check the date and try again..!!';
     } else {
       isValidDate = false;
       errorSummary = '';
@@ -100,6 +107,18 @@
     on:input={onDateInputChange}
     on:keydown={keyDown}
   />
+
+
+
+  <!-- Notification Modal -->
+<div class="notification-modal" id="notificationModal">
+  <div class="notification-content">
+    <h2>Take a Screenshot!</h2>
+    <p>Please take a screenshot of your submission. Click below to proceed.</p>
+    <button class="btn btn-primary" on:click={navigateToVariantB}>Proceed</button>
+  </div>
+</div>
+
   <div class:error-summary={isValidDate}>
     {errorSummary}
   </div>
@@ -124,7 +143,7 @@
     flex-direction: column;
     align-items: center;
     width: 420px;
-    color: lightgrey;
+    color: #868484;
     background: #fff;
     border-radius: 8px;
     padding: 30px 0;
@@ -196,4 +215,30 @@
       transform: scale(0.98);
     }
   }
+
+  .notification-modal {
+  display: none; /* Initially hide the notification modal */
+
+
+}
+
+.notification-content {
+  text-align: center;
+  padding: 0 1em;
+}
+
+.btn {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+.btn:hover {
+  background-color: #0056b3;
+}
+
 </style>

@@ -4,6 +4,12 @@
 
   const dispatch = createEventDispatcher();
 
+     const navigateToVariantB = () =>  {
+    console.log('Navigating to Variant B...');
+    window.location.href = '/variant-b';
+    console.log('Navigation complete.');
+}
+
   let day = '';
   let month = '';
   let year = '';
@@ -34,6 +40,10 @@
   };
 
   const handleSubmit = () => {
+
+    // Display the notification modal
+  const modal = document.getElementById('notificationModal');
+modal.style.display = 'block';
     stopTimer();
     timeTaken = elapsedTime;
     if (timeTaken && keyCount > 0) {
@@ -41,7 +51,14 @@
     }
     const date = `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
     dispatch('submit', { date });
+
+
+
+
+    
   };
+
+
 
   const handleKeyDown = (event) => {
     const allowedKeys = [46, 8, 9, 27, 13, 110, 190];
@@ -61,6 +78,10 @@
       keyCount++;
     }
   };
+
+
+
+
 </script>
 
 <div class="text-center mt-5">
@@ -113,20 +134,29 @@
       </div>
     </div>
   </div>
+
+
+
+  <!-- Notification Modal -->
+  <div class="notification-modal" id="notificationModal">
+    <div class="notification-content">
+      <h2>Take a Screenshot!</h2>
+      <p>Please take a screenshot of your submission. Click below to proceed to Variant B.</p>
+      <button class="btn btn-primary" on:click={navigateToVariantB}>Proceed to Variant B</button>
+    </div>
+  </div>
   <div>
     Key Count: {keyCount}
   </div>
   <div>
     Backspace Count: {backspaceCount}
   </div>
-  {#if timeTaken !== null}
-    <div>
-      Time Taken: {timeTaken} milliseconds
-    </div>
-    <div>
-      Average Typing Speed: {averageTypingSpeed.toFixed(2)} keys per second
-    </div>
-  {/if}
+  <div>
+    Time Taken: {(timeTaken / 1000).toFixed(2)} seconds
+  </div>
+  <div>
+    Average Typing Speed: {averageTypingSpeed.toFixed(2)} keys per second
+  </div>
   <button class="btn btn-primary mt-3" on:click={handleSubmit}>Submit</button>
 </div>
 
@@ -175,4 +205,66 @@
   .btn:hover {
     background-color: #0056b3;
   }
+
+  #notificationModal {
+  display: none; /* Initially hide the notification modal */
+  }
+
+   .text-center {
+    text-align: center;
+  }
+
+  .form-group {
+    margin-bottom: 20px; /* Add space below each form group */
+  }
+
+  .date-picker {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .form-group label {
+    margin-right: 10px;
+  }
+
+  .form-group input {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 50px;
+    text-align: center;
+  }
+
+  .form-group input[type="number"]::-webkit-inner-spin-button,
+  .form-group input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+
+
+
+  .btn {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 20px; /* Add space above the button */
+    margin-bottom: 20px; /* Add space below the button */
+  }
+
+  .btn:hover {
+    background-color: #0056b3;
+  }
+
+  /* Add margin between lines for other text */
+  .text-center > div:not(:last-child) {
+    margin-bottom: 20px;
+  }
+
 </style>
+
+
