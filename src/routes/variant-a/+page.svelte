@@ -269,4 +269,6 @@ modal.style.display = 'block';
 
 </style>
 
+</div>
+
 
